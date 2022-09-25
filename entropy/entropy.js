@@ -22,6 +22,5 @@ for(i in alph){
 for(i in alph){
     H -= alph[i]*Math.log(alph[i]);
 }
-//
 if (H !=0) H /= Math.log(n);
 console.log(H);
