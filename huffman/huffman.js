@@ -90,7 +90,7 @@ function createBinaryTree(tree, idCount){
 //Функция создания значений code у каждого элемента, таблицы кодирования и вывод таблицы в консоль
 function createCodeTable(tree){
   let len = tree.length;
-  if(tree.length!=1){
+  if(len!=1){
     sortTreeByFreq(tree);
     for(let i = len-2; i > -1; i--)
     {
