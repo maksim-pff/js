@@ -53,7 +53,6 @@ function decode(ContentOfInput, output){
   let orig_str = ContentOfInput; //orig_str = Содержимое входных данных
   let s = "";
   for(let i = 0; i < orig_str.length; i++){
-    console.log(orig_str[i]);
     if((orig_str[i]=='#')&&(orig_str[i+2]!='#')){
       for(let j = 0; j < orig_str.charCodeAt(i+1)+4; j++) s+=orig_str[i+2];
       i+=2;
