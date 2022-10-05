@@ -6,7 +6,7 @@ function code(ContentOfInput, output){
   let orig_str = ContentOfInput; //orig_str = Содержимое входных данных
   let n = 1; //n = Количество повторяющихся символов
   let s = "";
-  for(let i = 1; i <orig_str.length; i++){
+  for(let i = 1; i < orig_str.length; i++){
     if(orig_str[i-1]!='#'){
       if((orig_str[i-1]==orig_str[i])&&(n!=259)) n++;
       else if(n>3){
@@ -26,6 +26,23 @@ function code(ContentOfInput, output){
       }
     }
   }
+
+  //случай, когда вся строка состоит из одного повторяющегося символа и когда на конце один символ
+  let preLastIndex = orig_str.length - 2; //[i-1]
+  if(n!=1){
+    if(orig_str[preLastIndex]!='#'){
+      if(n>3) s+= `#` + String.fromCharCode(n-4) + orig_str[preLastIndex];
+      else{
+        for(let j = 0; j < n; j++) s+=orig_str[preLastIndex];
+      }
+    }
+    else{
+        s+= `#` + String.fromCharCode(n) + orig_str[preLastIndex];
+      }
+  }
+  else{
+    if(orig_str[preLastIndex+1]!=orig_str[preLastIndex]) s+= orig_str[preLastIndex+1];
+  }
   fs.writeFileSync(output, s);
   console.log("Coding is (hopefully) done successfully!");
   calculateCompressionRatio(ContentOfInput, s);
@@ -35,7 +52,8 @@ function code(ContentOfInput, output){
 function decode(ContentOfInput, output){
   let orig_str = ContentOfInput; //orig_str = Содержимое входных данных
   let s = "";
-  for(let i = 0; i <orig_str.length; i++){
+  for(let i = 0; i < orig_str.length; i++){
+    console.log(orig_str[i]);
     if((orig_str[i]=='#')&&(orig_str[i+2]!='#')){
       for(let j = 0; j < orig_str.charCodeAt(i+1)+4; j++) s+=orig_str[i+2];
       i+=2;
