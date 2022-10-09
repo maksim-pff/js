@@ -3,6 +3,7 @@
 <head>
 <title>Hamming code</title>
 <script>
+  //Функция по вычислению контрольных битов четности
   function calculateContolBits(str){
     let controlBits = [];
     let message = str.split('');
@@ -12,6 +13,7 @@
     controlBits.push(String((message[3]+message[4]+message[5]+message[6])%2));
     return controlBits;
   }
+  //Функция по вынесения битов четности из данной строчки
   function defineGivenContolBits(str){
     let controlBits = [];
     controlBits.push(str[0]);
@@ -35,11 +37,14 @@
     let givenControlBits = [];
     givenControlBits = defineGivenContolBits(message);
     let controlBits = [];
+    //обнуляем биты четности в строке для того, чтобы посчитать контрольные биты как-бы в первоначальной строке
     decodedMessage = '00' + message[2] + '0' + message.slice(4, 7);
     controlBits = calculateContolBits(decodedMessage);
+    //pos - позиция элемента строки, в котором возникла ошибка; flag - переменная для хранения данных о том, была ли ошибка в строчке
     let pos=0, flag=0;
     for (let i = 0; i < 3; i++){
       if(givenControlBits[i]!=controlBits[i]){
+        //тк биты находятся под номерами равными степеням двойки
         pos+=Math.pow(2, i);
         flag = 1;
       }
